@@ -61,12 +61,26 @@ igual — solo no vas a poder generar preguntas desde PDF.
 
 ## Deploy
 
-- **Servidor**: cualquier host de Node.js (Render, Railway, Fly.io). Setear
-  `PORT`, `CLIENT_ORIGIN` (URL del cliente desplegado) y
-  `ANTHROPIC_API_KEY` como variables de entorno.
+- **Servidor**: proceso persistente de Node.js (necesita mantener las
+  conexiones WebSocket y las salas en memoria — no sirve un hosting
+  serverless como Vercel Functions). Desplegado en **Fly.io** con el
+  `server/Dockerfile` incluido:
+
+  ```bash
+  cd server
+  fly launch      # detecta el Dockerfile, crea la app y el fly.toml
+  fly secrets set ANTHROPIC_API_KEY=sk-ant-...
+  fly secrets set CLIENT_ORIGIN=https://tu-cliente.vercel.app
+  fly deploy
+  ```
+
+  También funciona en cualquier otro host de proceso persistente (Render,
+  Railway) con las mismas variables de entorno: `PORT`, `CLIENT_ORIGIN`,
+  `ANTHROPIC_API_KEY`.
+
 - **Cliente**: cualquier hosting estático (Vercel, Netlify, GitHub Pages).
-  Setear `VITE_SERVER_URL` apuntando a la URL pública del servidor antes
-  de `npm run build`.
+  Setear `VITE_SERVER_URL` apuntando a la URL pública del servidor (la
+  que te da Fly) antes de `npm run build`.
 
 Al ser una app web, los jugadores solo necesitan el link/código — nunca
 instalan nada.
