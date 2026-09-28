@@ -1,7 +1,10 @@
 import cors from "cors";
 import express from "express";
+import multer from "multer";
 import { createServer } from "node:http";
+import { PDFParse } from "pdf-parse";
 import { Server, type Socket } from "socket.io";
+import { generateQuestionsFromText } from "./ai.js";
 import {
   addPlayer,
   createRoom,
@@ -18,10 +21,42 @@ import type { Question, Room } from "./types.js";
 
 const PORT = Number(process.env.PORT ?? 4000);
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN ?? "http://localhost:5173";
+const MAX_PDF_BYTES = 10 * 1024 * 1024;
+
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: MAX_PDF_BYTES } });
 
 const app = express();
 app.use(cors({ origin: CLIENT_ORIGIN }));
 app.get("/health", (_req, res) => res.json({ ok: true }));
+
+app.post("/api/generate-questions", upload.single("pdf"), async (req, res) => {
+  if (!req.file) {
+    res.status(400).json({ error: "Sube un archivo PDF." });
+    return;
+  }
+  if (req.file.mimetype !== "application/pdf") {
+    res.status(400).json({ error: "El archivo debe ser un PDF." });
+    return;
+  }
+
+  const count = Math.min(20, Math.max(1, Number(req.body.count) || 5));
+  const timeLimitSec = Math.min(120, Math.max(5, Number(req.body.timeLimitSec) || 20));
+
+  try {
+    const parser = new PDFParse({ data: req.file.buffer });
+    const { text } = await parser.getText();
+    if (!text.trim()) {
+      res.status(400).json({ error: "No se pudo extraer texto de ese PDF (¿está escaneado como imagen?)." });
+      return;
+    }
+
+    const questions = await generateQuestionsFromText(text, count, timeLimitSec);
+    res.json({ questions });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Error generando preguntas.";
+    res.status(500).json({ error: message });
+  }
+});
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {

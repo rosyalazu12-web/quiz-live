@@ -115,6 +115,50 @@ button {
   margin-top: 0;
 }
 
+.pdf-generator {
+  border: 1px dashed var(--accent);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 20px;
+  background: rgba(124, 92, 255, 0.08);
+}
+
+.pdf-hint {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0 0 12px;
+}
+
+.pdf-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.pdf-controls input[type="file"] {
+  color: var(--text);
+  flex: 1;
+  min-width: 180px;
+}
+
+.pdf-count {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.pdf-count input {
+  width: 60px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
 .question-card {
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius);
