@@ -1,0 +1,359 @@
+:root {
+  --bg: #1b1140;
+  --bg-panel: #241a55;
+  --accent: #7c5cff;
+  --accent-2: #ff5cb3;
+  --text: #f4f2ff;
+  --muted: #b8aee0;
+  --opt0: #e21b3c;
+  --opt1: #1368ce;
+  --opt2: #d89e00;
+  --opt3: #26890c;
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(160deg, var(--bg), #10092b);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.app-header h1 {
+  font-size: 2.4rem;
+  margin: 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.app-header p {
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+.home-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  margin-top: 60px;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 700;
+}
+
+.primary {
+  background: var(--accent);
+  color: white;
+  padding: 14px 24px;
+  font-size: 1rem;
+}
+
+.primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  padding: 14px 24px;
+  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.big {
+  width: 100%;
+  max-width: 340px;
+  font-size: 1.1rem;
+}
+
+.link-btn {
+  background: none;
+  color: var(--muted);
+  text-decoration: underline;
+  font-weight: 400;
+  padding: 4px;
+}
+
+.link-btn.remove {
+  float: right;
+  color: var(--opt0);
+}
+
+.host-flow,
+.player-flow {
+  background: var(--bg-panel);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.question-builder h2 {
+  margin-top: 0;
+}
+
+.question-card {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.question-card input[type="text"],
+.join-form input,
+.time-limit input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-size: 1rem;
+  margin-top: 6px;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.option-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.option-input input[type="text"] {
+  margin-top: 0;
+}
+
+.opt-0 { border-left: 6px solid var(--opt0); }
+.opt-1 { border-left: 6px solid var(--opt1); }
+.opt-2 { border-left: 6px solid var(--opt2); }
+.opt-3 { border-left: 6px solid var(--opt3); }
+
+.time-limit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+}
+
+.time-limit input {
+  width: 80px;
+}
+
+.builder-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.error-text {
+  color: #ff8a8a;
+  margin-top: 8px;
+}
+
+.lobby-view {
+  text-align: center;
+}
+
+.room-code {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.join-hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.join-hint a {
+  color: var(--accent-2);
+}
+
+.player-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  justify-content: center;
+  margin: 16px 0 24px;
+}
+
+.player-chips li {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 14px;
+  border-radius: 999px;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.timer-bar-track {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+}
+
+.timer-bar-fill {
+  height: 100%;
+  transition: width 0.1s linear, background 0.3s;
+}
+
+.timer-seconds {
+  font-weight: 700;
+  min-width: 34px;
+  text-align: right;
+}
+
+.question-progress {
+  color: var(--muted);
+  margin: 0;
+}
+
+.option-tile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px;
+  border-radius: var(--radius);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: white;
+  min-height: 60px;
+}
+
+.option-tile.opt-0 { background: var(--opt0); border-left: none; }
+.option-tile.opt-1 { background: var(--opt1); border-left: none; }
+.option-tile.opt-2 { background: var(--opt2); border-left: none; }
+.option-tile.opt-3 { background: var(--opt3); border-left: none; }
+
+.option-tile.dim {
+  opacity: 0.35;
+}
+
+.option-tile.correct {
+  outline: 4px solid #2ecc71;
+}
+
+.option-tile.wrong {
+  outline: 4px solid #ff4d4d;
+}
+
+.answer-btn {
+  width: 100%;
+  text-align: left;
+  border: none;
+}
+
+.answer-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 480px) {
+  .answer-grid,
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.option-letter {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-weight: 800;
+}
+
+.answered-count {
+  text-align: center;
+  color: var(--muted);
+  margin-top: 16px;
+}
+
+.leaderboard {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+.leaderboard li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+.leaderboard.final li.gold { background: linear-gradient(90deg, #ffd700, #f4c400); color: #2a2000; }
+.leaderboard.final li.silver { background: linear-gradient(90deg, #d9d9d9, #b8b8b8); color: #202020; }
+.leaderboard.final li.bronze { background: linear-gradient(90deg, #cd7f32, #b06a2a); color: #2a1300; }
+.leaderboard.final li.me { outline: 2px solid var(--accent-2); }
+
+.join-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.join-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--muted);
+}
+
+.waiting-view,
+.ended-view {
+  text-align: center;
+}
+
+.my-score {
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.empty-state {
+  color: var(--muted);
+}
