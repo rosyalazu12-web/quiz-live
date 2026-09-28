@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { socket } from "../socket";
+import { applyTheme } from "../theme";
 import type { LeaderboardEntry, PublicQuestion } from "../types";
 import { Timer } from "./Timer";
 
@@ -56,9 +57,10 @@ export function PlayerFlow({ initialCode, onExit }: { initialCode: string; onExi
     e.preventDefault();
     setJoining(true);
     setError(null);
-    socket.emit("player:join", { code, name }, (res: { ok: boolean; error?: string }) => {
+    socket.emit("player:join", { code, name }, (res: { ok: boolean; error?: string; theme?: "default" | "arellano" }) => {
       setJoining(false);
       if (res.ok) {
+        if (res.theme) applyTheme(res.theme);
         setStage("lobby");
       } else {
         setError(res.error ?? "No se pudo unir a la sala.");

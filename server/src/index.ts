@@ -17,7 +17,7 @@ import {
   resetAnswers,
   scoreForAnswer,
 } from "./rooms.js";
-import type { Question, Room } from "./types.js";
+import type { Question, Room, Theme } from "./types.js";
 
 const PORT = Number(process.env.PORT ?? 4000);
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN ?? "http://localhost:5173";
@@ -121,8 +121,9 @@ io.on("connection", (socket: Socket) => {
   socket.data.role = null as "host" | "player" | null;
   socket.data.roomCode = null as string | null;
 
-  socket.on("host:create-room", (payload: { questions: Question[] }, callback: (res: { ok: boolean; code?: string; error?: string }) => void) => {
+  socket.on("host:create-room", (payload: { questions: Question[]; theme?: Theme }, callback: (res: { ok: boolean; code?: string; error?: string }) => void) => {
     const questions = payload?.questions;
+    const theme: Theme = payload?.theme === "arellano" ? "arellano" : "default";
     if (!Array.isArray(questions) || questions.length === 0) {
       callback({ ok: false, error: "Necesitas al menos una pregunta." });
       return;
@@ -138,14 +139,14 @@ io.on("connection", (socket: Socket) => {
       }
     }
 
-    const room = createRoom(socket.id, questions);
+    const room = createRoom(socket.id, questions, theme);
     socket.join(room.code);
     socket.data.role = "host";
     socket.data.roomCode = room.code;
     callback({ ok: true, code: room.code });
   });
 
-  socket.on("player:join", (payload: { code: string; name: string }, callback: (res: { ok: boolean; error?: string }) => void) => {
+  socket.on("player:join", (payload: { code: string; name: string }, callback: (res: { ok: boolean; error?: string; theme?: Theme }) => void) => {
     const code = (payload?.code ?? "").toUpperCase().trim();
     const name = (payload?.name ?? "").trim().slice(0, 24);
     const room = getRoom(code);
@@ -172,7 +173,7 @@ io.on("connection", (socket: Socket) => {
     socket.data.role = "player";
     socket.data.roomCode = room.code;
 
-    callback({ ok: true });
+    callback({ ok: true, theme: room.theme });
     broadcastPlayers(room);
   });
 

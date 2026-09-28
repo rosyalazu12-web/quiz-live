@@ -10,6 +10,21 @@
   --opt2: #d89e00;
   --opt3: #26890c;
   --radius: 14px;
+  --bg-end: #10092b;
+}
+
+:root[data-theme="arellano"] {
+  --bg: #1b2a4a;
+  --bg-panel: #263b5e;
+  --accent: #6bbf59;
+  --accent-2: #4a9e3f;
+  --text: #ffffff;
+  --muted: #8899aa;
+  --opt0: #54a441;
+  --opt1: #263b5e;
+  --opt2: #6bbf59;
+  --opt3: #64748b;
+  --bg-end: #0f1a2e;
 }
 
 * {
@@ -18,7 +33,7 @@
 
 body {
   margin: 0;
-  background: linear-gradient(160deg, var(--bg), #10092b);
+  background: linear-gradient(160deg, var(--bg), var(--bg-end));
   color: var(--text);
   font-family: "Segoe UI", system-ui, sans-serif;
   min-height: 100vh;
@@ -55,6 +70,24 @@ body {
   gap: 16px;
   align-items: center;
   margin-top: 60px;
+}
+
+.theme-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.theme-picker select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-family: inherit;
 }
 
 button {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { socket } from "../socket";
-import type { LeaderboardEntry, PlayerSummary, PublicQuestion, QuestionDraft } from "../types";
+import type { LeaderboardEntry, PlayerSummary, PublicQuestion, QuestionDraft, Theme } from "../types";
 import { QuestionBuilder } from "./QuestionBuilder";
 import { Timer } from "./Timer";
 
@@ -8,7 +8,7 @@ type Stage = "setup" | "lobby" | "question" | "reveal" | "ended";
 
 const OPTION_LETTERS = ["A", "B", "C", "D"];
 
-export function HostFlow({ onExit }: { onExit: () => void }) {
+export function HostFlow({ theme, onExit }: { theme: Theme; onExit: () => void }) {
   const [stage, setStage] = useState<Stage>("setup");
   const [code, setCode] = useState<string | null>(null);
   const [players, setPlayers] = useState<PlayerSummary[]>([]);
@@ -54,7 +54,7 @@ export function HostFlow({ onExit }: { onExit: () => void }) {
     setError(null);
     socket.emit(
       "host:create-room",
-      { questions },
+      { questions, theme },
       (res: { ok: boolean; code?: string; error?: string }) => {
         setCreating(false);
         if (res.ok && res.code) {

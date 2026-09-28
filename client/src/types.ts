@@ -1,3 +1,5 @@
+export type Theme = "default" | "arellano";
+
 export interface QuestionDraft {
   text: string;
   options: string[];

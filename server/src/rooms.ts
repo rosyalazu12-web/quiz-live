@@ -1,4 +1,4 @@
-import type { LeaderboardEntry, Player, Question, Room } from "./types.js";
+import type { LeaderboardEntry, Player, Question, Room, Theme } from "./types.js";
 
 const rooms = new Map<string, Room>();
 
@@ -12,10 +12,11 @@ function generateCode(): string {
   return code;
 }
 
-export function createRoom(hostSocketId: string, questions: Question[]): Room {
+export function createRoom(hostSocketId: string, questions: Question[], theme: Theme = "default"): Room {
   const room: Room = {
     code: generateCode(),
     hostSocketId,
+    theme,
     questions,
     players: new Map(),
     state: "lobby",

@@ -15,9 +15,12 @@ export interface Player {
 
 export type RoomState = "lobby" | "question" | "reveal" | "ended";
 
+export type Theme = "default" | "arellano";
+
 export interface Room {
   code: string;
   hostSocketId: string;
+  theme: Theme;
   questions: Question[];
   players: Map<string, Player>;
   state: RoomState;
