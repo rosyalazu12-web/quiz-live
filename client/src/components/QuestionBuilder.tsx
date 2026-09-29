@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { QuestionDraft } from "../types";
+import { IconPicker } from "./IconPicker";
 
 const EMPTY_QUESTION: QuestionDraft = {
   text: "",
@@ -145,6 +146,7 @@ export function QuestionBuilder({ onCreate, loading, error }: Props) {
             onChange={(e) => updateQuestion(qIndex, { text: e.target.value })}
             required
           />
+          <IconPicker value={q.icon} onChange={(icon) => updateQuestion(qIndex, { icon })} />
           <div className="options-grid">
             {q.options.map((opt, oIndex) => (
               <label key={oIndex} className={`option-input opt-${oIndex}`}>

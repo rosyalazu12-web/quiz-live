@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { socket } from "../socket";
 import { applyTheme } from "../theme";
 import type { LeaderboardEntry, PublicQuestion } from "../types";
+import { iconUrl } from "./IconPicker";
 import { Timer } from "./Timer";
 
 type Stage = "join" | "lobby" | "question" | "waiting" | "reveal" | "ended";
@@ -125,6 +126,11 @@ export function PlayerFlow({ initialCode, onExit }: { initialCode: string; onExi
       {stage === "question" && question && (
         <div className="player-question-view">
           <Timer startedAt={question.startedAt} timeLimitSec={question.timeLimitSec} />
+          {question.icon && (
+            <div className="question-icon">
+              <img src={iconUrl(question.icon)} alt="" />
+            </div>
+          )}
           <h2>{question.text}</h2>
           <div className="options-grid answer-grid">
             {question.options.map((opt, i) => (

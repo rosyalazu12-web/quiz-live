@@ -4,6 +4,7 @@ export interface Question {
   options: string[];
   correctIndex: number;
   timeLimitSec: number;
+  icon?: string;
 }
 
 export interface Player {

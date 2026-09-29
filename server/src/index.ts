@@ -68,6 +68,7 @@ function publicQuestion(question: Question) {
     text: question.text,
     options: question.options,
     timeLimitSec: question.timeLimitSec,
+    icon: question.icon,
   };
 }
 

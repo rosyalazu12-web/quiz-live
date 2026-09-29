@@ -5,6 +5,7 @@ export interface QuestionDraft {
   options: string[];
   correctIndex: number;
   timeLimitSec: number;
+  icon?: string;
 }
 
 export interface PublicQuestion {
@@ -14,6 +15,7 @@ export interface PublicQuestion {
   options: string[];
   timeLimitSec: number;
   startedAt: number;
+  icon?: string;
 }
 
 export interface LeaderboardEntry {

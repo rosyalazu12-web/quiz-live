@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { socket } from "../socket";
 import type { LeaderboardEntry, PlayerSummary, PublicQuestion, QuestionDraft, Theme } from "../types";
+import { iconUrl } from "./IconPicker";
 import { QuestionBuilder } from "./QuestionBuilder";
 import { Timer } from "./Timer";
 
@@ -130,6 +131,11 @@ export function HostFlow({ theme, onExit }: { theme: Theme; onExit: () => void }
           <p className="question-progress">
             Pregunta {question.index + 1} / {question.total}
           </p>
+          {question.icon && (
+            <div className="question-icon">
+              <img src={iconUrl(question.icon)} alt="" />
+            </div>
+          )}
           <h2>{question.text}</h2>
           <Timer startedAt={question.startedAt} timeLimitSec={question.timeLimitSec} />
           <div className="options-grid readonly">
